@@ -8,11 +8,10 @@ import android.util.Log;
 import android.widget.Toast;
 import net.spooker.WakeOnLan.SendPacketsActivity;
 import net.spooker.WakeOnLan.SendWolPacketsTask;
+import org.javatuples.Quintet;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
+import java.util.*;
+import java.util.concurrent.*;
 
 /**
  * Created by Administrator on 5/5/2014.
@@ -23,7 +22,7 @@ public class MagicPacketService extends Service
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
     //ScheduledExecutorService scheduledTaskExecutor = Executors.newScheduledThreadPool(5);
-    ScheduledExecutorService scheduledTaskExecutor = Executors.newSingleThreadScheduledExecutor();
+    private ScheduledExecutorService scheduledTaskExecutor = Executors.newSingleThreadScheduledExecutor();
 
     // Handler that receives messages from the thread
     private final class ServiceHandler extends Handler
@@ -36,10 +35,11 @@ public class MagicPacketService extends Service
         @Override
         public void handleMessage(Message msg)
         {
-            logInfo("Start of handleMessage. msg.getData() = " + msg.getData());
+            logInfo("Start of handleMessage");
             // Normally we would do some work here, like download a file.
             synchronized (this)
             {
+                logInfo("Start of SYNC CODE in handleMessage");
                 try
                 {
                     Bundle data = msg.getData();
@@ -47,23 +47,17 @@ public class MagicPacketService extends Service
                     final String ip = data.getString("ip");
                     final String numberOfPacketsToSend = data.getString("numberOfPacketsToSend");
                     final String delay = data.getString("delay");
+                    final Date now = new Date();
+                    final Quintet quintet = new Quintet(mac, ip, numberOfPacketsToSend, delay, now);
 
-                    ScheduledFuture scheduleFuture = scheduledTaskExecutor.schedule(new Runnable()
+                    ScheduledFuture scheduledFuture = scheduledTaskExecutor.schedule(new Runnable()
                     {
                         @Override
                         public void run()
                         {
-                            logInfo("scheduleFuture thread started . Thread.currentThread() = "+Thread.currentThread());
+                            logInfo("scheduleFuture thread started . Thread.currentThread() = " + Thread.currentThread());
                             new SendWolPacketsTask(MagicPacketService.this).execute(mac, ip, numberOfPacketsToSend);
-                            try
-                            {
-                                Thread.sleep(5000);
-                            }
-                            catch (InterruptedException e)
-                            {
-                                e.printStackTrace();
-                            }
-                            logInfo("scheduleFuture thread ended . Thread.currentThread() = "+Thread.currentThread());
+                            logInfo("scheduleFuture thread ended . Thread.currentThread() = " + Thread.currentThread());
                         }
                     }, Integer.parseInt(delay), TimeUnit.SECONDS);
                 }
@@ -71,11 +65,13 @@ public class MagicPacketService extends Service
                 {
                     logException("Exception in handleMessage", e);
                 }
+                logInfo("End of SYNC CODE in handleMessage. msg.getData() = " + msg.getData());
             }
 
+            logInfo("End of handleMessage()");
             // Stop the service using the startId, so that we don't stop
             // the service in the middle of handling another job
-            logInfo("End of handleMessage(). Stopping service");
+            logInfo("Stopping service");
             stopSelf(msg.arg1);
         }
     }

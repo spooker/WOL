@@ -37,7 +37,7 @@ public class SendPacketsActivity extends Activity
                 final String mac = "70:71:bc:19:1b:c3";
                 final String ip = "spooker.noip.me";
                 final String numberOfPacketsToSend = "2";
-                final String delay = "5";
+                final String delay = "25";
 
 
                         Intent intent = new Intent(SendPacketsActivity.this, MagicPacketService.class);
