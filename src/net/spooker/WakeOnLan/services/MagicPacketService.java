@@ -9,6 +9,11 @@ import android.widget.Toast;
 import net.spooker.WakeOnLan.SendPacketsActivity;
 import net.spooker.WakeOnLan.SendWolPacketsTask;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by Administrator on 5/5/2014.
  */
@@ -17,6 +22,8 @@ public class MagicPacketService extends Service
     private static final String TAG = "MagicPacketService";
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
+    //ScheduledExecutorService scheduledTaskExecutor = Executors.newScheduledThreadPool(5);
+    ScheduledExecutorService scheduledTaskExecutor = Executors.newSingleThreadScheduledExecutor();
 
     // Handler that receives messages from the thread
     private final class ServiceHandler extends Handler
@@ -29,28 +36,46 @@ public class MagicPacketService extends Service
         @Override
         public void handleMessage(Message msg)
         {
+            logInfo("Start of handleMessage. msg.getData() = " + msg.getData());
             // Normally we would do some work here, like download a file.
-            // For our sample, we just sleep for 5 seconds.
-
-
             synchronized (this)
             {
                 try
                 {
                     Bundle data = msg.getData();
-                    String mac = data.getString("mac");
-                    String ip = data.getString("ip");
-                    String numberOfPacketsToSend = data.getString("numberOfPacketsToSend");
-                    new SendWolPacketsTask(MagicPacketService.this).execute(mac, ip, numberOfPacketsToSend);
+                    final String mac = data.getString("mac");
+                    final String ip = data.getString("ip");
+                    final String numberOfPacketsToSend = data.getString("numberOfPacketsToSend");
+                    final String delay = data.getString("delay");
+
+                    ScheduledFuture scheduleFuture = scheduledTaskExecutor.schedule(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            logInfo("scheduleFuture thread started . Thread.currentThread() = "+Thread.currentThread());
+                            new SendWolPacketsTask(MagicPacketService.this).execute(mac, ip, numberOfPacketsToSend);
+                            try
+                            {
+                                Thread.sleep(5000);
+                            }
+                            catch (InterruptedException e)
+                            {
+                                e.printStackTrace();
+                            }
+                            logInfo("scheduleFuture thread ended . Thread.currentThread() = "+Thread.currentThread());
+                        }
+                    }, Integer.parseInt(delay), TimeUnit.SECONDS);
                 }
                 catch (Exception e)
                 {
-                    logException("Exception in handleMessage",e);
+                    logException("Exception in handleMessage", e);
                 }
             }
 
             // Stop the service using the startId, so that we don't stop
             // the service in the middle of handling another job
+            logInfo("End of handleMessage(). Stopping service");
             stopSelf(msg.arg1);
         }
     }
@@ -58,6 +83,7 @@ public class MagicPacketService extends Service
     @Override
     public void onCreate()
     {
+        logInfo("Start of onCreate()");
         // Start up the thread running the service.  Note that we create a
         // separate thread because the service normally runs in the process's
         // main thread, which we don't want to block.  We also make it
@@ -69,19 +95,14 @@ public class MagicPacketService extends Service
         // Get the HandlerThread's Looper and use it for our Handler
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper);
+        logInfo("End of onCreate()");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
+        logInfo("Start of onStartCommand()");
         Toast.makeText(this, "service starting", Toast.LENGTH_SHORT).show();
-
-//        String mac = intent.getStringExtra("mac");
-//        String ip = intent.getStringExtra("ip");
-//        String numberOfPacketsToSend = intent.getStringExtra("numberOfPacketsToSend");
-//        logInfo("mac = "+mac);
-//        logInfo("ip = "+ip);
-//        logInfo("numberOfPacketsToSend = "+numberOfPacketsToSend);
 
         //Get extras from intent as Bundle to pass them to the message
         Bundle extras = intent.getExtras();
@@ -94,6 +115,7 @@ public class MagicPacketService extends Service
         mServiceHandler.sendMessage(msg);
 
         // If we get killed, after returning from here, restart
+        logInfo("End of onStartCommand()");
         return START_STICKY;
     }
 
@@ -114,7 +136,8 @@ public class MagicPacketService extends Service
     {
         Log.i(TAG, msg);
     }
-    private void logException(String msg,Exception e)
+
+    private void logException(String msg, Exception e)
     {
         Log.e(TAG, msg, e);
     }
