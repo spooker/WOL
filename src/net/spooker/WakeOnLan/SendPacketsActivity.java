@@ -41,8 +41,8 @@ public class SendPacketsActivity extends Activity
                 final String numberOfPacketsToSend = "150";
 
                 Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.SECOND,10);
-                final long when  = calendar.getTimeInMillis();
+                calendar.add(Calendar.SECOND,120);
+                final Long when  = (Long) calendar.getTimeInMillis();
 
 
                         Intent intent = new Intent(SendPacketsActivity.this, MagicPacketService.class);

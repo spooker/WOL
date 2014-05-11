@@ -52,10 +52,10 @@ public class MagicPacketService extends Service
                     final String mac = data.getString("mac");
                     final String ip = data.getString("ip");
                     final String numberOfPacketsToSend = data.getString("numberOfPacketsToSend");
-                    final long when = data.getLong("when");
-                    final long now = Calendar.getInstance().getTimeInMillis();
-                    final Quintet quintet = new Quintet(mac, ip, numberOfPacketsToSend, when, now);
-                    final long delay = when-now;
+                    final Long when = data.getLong("when");
+                    final Long now = (Long) Calendar.getInstance().getTimeInMillis();
+                    final Quintet<String,String,String,Long,Long> quintet = new Quintet<String,String,String,Long,Long>(mac, ip, numberOfPacketsToSend, when, now);
+                    final Long delay = when-now;
 
                     final CountDownLatch latch = new CountDownLatch(1);
                     ScheduledFuture scheduledFuture = scheduledTaskExecutor.schedule(new Runnable()
@@ -165,7 +165,7 @@ public class MagicPacketService extends Service
         Log.e(TAG, msg, e);
     }
 
-    private void addToSharedPreferences(Quintet key,String value)
+    private void addToSharedPreferences(Quintet<String,String,String,Long,Long> key,String value)
     {
 
         SharedPreferences.Editor ed=sharedPreferences.edit();
@@ -174,11 +174,10 @@ public class MagicPacketService extends Service
         ed.commit();
     }
 
-    private void removeFromSharedPreferences(Quintet key)
+    private void removeFromSharedPreferences(Quintet<String,String,String,Long,Long> key)
     {
         SharedPreferences.Editor ed=sharedPreferences.edit();
         Gson gson = new Gson();
-        Quintet quintet = gson.fromJson(gson.toJson(key), Quintet.class);
         ed.remove(gson.toJson(key));
         ed.commit();
     }

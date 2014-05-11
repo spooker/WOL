@@ -75,13 +75,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MagicPacketService.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="MagicPacketService.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/services/MagicPacketService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="25" selection-start="2487" selection-end="2487" vertical-scroll-proportion="-0.3994778" vertical-offset="1139" max-vertical-offset="3026">
+            <state line="86" column="35" selection-start="3833" selection-end="3833" vertical-scroll-proportion="46.73077" vertical-offset="2422" max-vertical-offset="3009">
               <folding>
-                <element signature="e#2349#3477#0" expanded="true" />
-                <element signature="e#3454#3455#0" expanded="true" />
+                <element signature="e#2136#2168#0" expanded="true" />
+                <element signature="e#2420#3548#0" expanded="true" />
+                <element signature="e#3525#3526#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -90,7 +91,7 @@
       <file leaf-file-name="Utils.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/utils/Utils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="23" selection-start="320" selection-end="320" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
+            <state line="18" column="0" selection-start="386" selection-end="745" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
               <folding />
             </state>
           </provider>
@@ -108,7 +109,7 @@
       <file leaf-file-name="SendPacketsActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/SendPacketsActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="26" selection-start="1395" selection-end="1399" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="782">
+            <state line="44" column="69" selection-start="1443" selection-end="1443" vertical-scroll-proportion="0.0" vertical-offset="16" max-vertical-offset="782">
               <folding />
             </state>
           </provider>
@@ -141,10 +142,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BootCompletedBroadcastReceiver.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="BootCompletedBroadcastReceiver.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/broadcastReceivers/BootCompletedBroadcastReceiver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="32" selection-start="861" selection-end="861" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
+            <state line="49" column="0" selection-start="1951" selection-end="1951" vertical-scroll-proportion="0.65960264" vertical-offset="80" max-vertical-offset="1190">
               <folding />
             </state>
           </provider>
@@ -169,17 +170,16 @@
         <option value="$PROJECT_DIR$/src/net/spooker/WakeOnLan/executors/ExtendedScheduledExecutorService.java" />
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/net/spooker/WakeOnLan/utils/Utils.java" />
-        <option value="$PROJECT_DIR$/src/net/spooker/WakeOnLan/broadcastReceivers/BootCompletedBroadcastReceiver.java" />
         <option value="$PROJECT_DIR$/src/net/spooker/WakeOnLan/SendPacketsActivity.java" />
         <option value="$PROJECT_DIR$/src/net/spooker/WakeOnLan/services/MagicPacketService.java" />
+        <option value="$PROJECT_DIR$/src/net/spooker/WakeOnLan/broadcastReceivers/BootCompletedBroadcastReceiver.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
-    <option name="y" value="-8" />
     <option name="width" value="1936" />
-    <option name="height" value="1176" />
+    <option name="height" value="1160" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -340,9 +340,10 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="emulator-5554" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/gson-2.2.4.jar!/" />
     <property name="extract.method.default.visibility" value="private" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="GalaxyNexus" />
   </component>
   <component name="RunManager" selected="Android Application.WakeOnLan">
     <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails" singleton="true">
@@ -617,15 +618,15 @@
       <workItem from="1399800888821" duration="23762000" />
       <workItem from="1399827125078" duration="415000" />
       <workItem from="1399827623564" duration="3005000" />
-      <workItem from="1399831723860" duration="2878000" />
+      <workItem from="1399831723860" duration="6472000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53474000" />
+    <option name="totallyTimeSpent" value="57068000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
+    <frame x="-8" y="0" width="1936" height="1160" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -635,7 +636,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4060721" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32990655" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -643,14 +644,14 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32990655" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25981307" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2590133" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17395833" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32990655" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32922202" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296875" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -711,8 +712,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="33" selection-start="296" selection-end="310" vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="1683">
           <folding>
-            <element signature="e#2349#3477#0" expanded="true" />
-            <element signature="e#3454#3455#0" expanded="true" />
+            <element signature="e#2136#2168#0" expanded="true" />
+            <element signature="e#2420#3548#0" expanded="true" />
+            <element signature="e#3525#3526#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -981,13 +983,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/utils/Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="23" selection-start="320" selection-end="320" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Program Files/Android/adt-bundle-windows-x86_64-20131030/sdk/sources/android-18/android/content/SharedPreferences.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="189" column="16" selection-start="7835" selection-end="7835" vertical-scroll-proportion="0.0" vertical-offset="2703" max-vertical-offset="6154">
@@ -995,27 +990,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/broadcastReceivers/BootCompletedBroadcastReceiver.java">
+    <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/utils/Utils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="32" selection-start="861" selection-end="861" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
+        <state line="18" column="0" selection-start="386" selection-end="745" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/SendPacketsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="26" selection-start="1395" selection-end="1399" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="782">
+        <state line="44" column="69" selection-start="1443" selection-end="1443" vertical-scroll-proportion="0.0" vertical-offset="16" max-vertical-offset="782">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/services/MagicPacketService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="25" selection-start="2487" selection-end="2487" vertical-scroll-proportion="-0.3994778" vertical-offset="1139" max-vertical-offset="3026">
+        <state line="86" column="35" selection-start="3833" selection-end="3833" vertical-scroll-proportion="46.73077" vertical-offset="2422" max-vertical-offset="3009">
           <folding>
-            <element signature="e#2349#3477#0" expanded="true" />
-            <element signature="e#3454#3455#0" expanded="true" />
+            <element signature="e#2136#2168#0" expanded="true" />
+            <element signature="e#2420#3548#0" expanded="true" />
+            <element signature="e#3525#3526#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/broadcastReceivers/BootCompletedBroadcastReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="0" selection-start="1951" selection-end="1951" vertical-scroll-proportion="0.65960264" vertical-offset="80" max-vertical-offset="1190">
+          <folding />
         </state>
       </provider>
     </entry>
