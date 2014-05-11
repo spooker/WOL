@@ -52,9 +52,10 @@ public class MagicPacketService extends Service
                     final String mac = data.getString("mac");
                     final String ip = data.getString("ip");
                     final String numberOfPacketsToSend = data.getString("numberOfPacketsToSend");
-                    final String delay = data.getString("delay");
-                    final Date now = new Date();
-                    final Quintet quintet = new Quintet(mac, ip, numberOfPacketsToSend, delay, now);
+                    final long when = data.getLong("when");
+                    final long now = Calendar.getInstance().getTimeInMillis();
+                    final Quintet quintet = new Quintet(mac, ip, numberOfPacketsToSend, when, now);
+                    final long delay = when-now;
 
                     final CountDownLatch latch = new CountDownLatch(1);
                     ScheduledFuture scheduledFuture = scheduledTaskExecutor.schedule(new Runnable()
@@ -67,18 +68,16 @@ public class MagicPacketService extends Service
                                 logInfo("scheduleFuture thread started . Thread.currentThread() = " + Thread.currentThread());
                                 latch.await(); //Synchronize with parent thread when CountDownLatch reaches 0
                                 new SendWolPacketsTask(MagicPacketService.this).execute(mac, ip, numberOfPacketsToSend);
+                                removeFromSharedPreferences(quintet); //remove from storage
+                                scheduledFuturesMap.remove(quintet); //remove from map
+                                logInfo("scheduleFuture thread ended . Thread.currentThread() = " + Thread.currentThread());
                             }
                             catch (InterruptedException e)
                             {
                                 logException("Exception in run", e);
                             }
-                            finally
-                            {
-                                removeFromSharedPreferences(quintet); //remove from storage
-                                scheduledFuturesMap.remove(quintet); //remove from map
-                            }
                         }
-                    }, Integer.parseInt(delay), TimeUnit.SECONDS);
+                    }, delay, TimeUnit.MILLISECONDS);
 
 
                     addToSharedPreferences(quintet,null); //add to storage

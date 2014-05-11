@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import net.spooker.WakeOnLan.services.MagicPacketService;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -37,14 +39,17 @@ public class SendPacketsActivity extends Activity
                 final String mac = "70:71:bc:19:1b:c3";
                 final String ip = "spooker.noip.me";
                 final String numberOfPacketsToSend = "150";
-                final String delay = "120";
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.SECOND,10);
+                final long when  = calendar.getTimeInMillis();
 
 
                         Intent intent = new Intent(SendPacketsActivity.this, MagicPacketService.class);
                         intent.putExtra("mac", mac);
                         intent.putExtra("ip", ip);
                         intent.putExtra("numberOfPacketsToSend", numberOfPacketsToSend);
-                        intent.putExtra("delay", delay);
+                        intent.putExtra("when", when);
                         startService(intent);
 
 
