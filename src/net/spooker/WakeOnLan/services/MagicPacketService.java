@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import net.spooker.WakeOnLan.SendPacketsActivity;
 import net.spooker.WakeOnLan.SendWolPacketsTask;
+import net.spooker.WakeOnLan.utils.Utils;
 import org.javatuples.Quintet;
 
 import java.util.*;
@@ -27,7 +28,7 @@ public class MagicPacketService extends Service
     //ScheduledExecutorService scheduledTaskExecutor = Executors.newScheduledThreadPool(5);
     private ScheduledExecutorService scheduledTaskExecutor = Executors.newSingleThreadScheduledExecutor();
     private static final Map<Quintet, ScheduledFuture> scheduledFuturesMap = new ConcurrentHashMap<Quintet, ScheduledFuture>();
-    private SharedPreferences mPrefs;
+    private SharedPreferences sharedPreferences;
 
 
     // Handler that receives messages from the thread
@@ -64,21 +65,24 @@ public class MagicPacketService extends Service
                             try
                             {
                                 logInfo("scheduleFuture thread started . Thread.currentThread() = " + Thread.currentThread());
-                                latch.await();                                                                              //Synchronize with parent thread when CountDownLatch reaches 0
+                                latch.await(); //Synchronize with parent thread when CountDownLatch reaches 0
                                 new SendWolPacketsTask(MagicPacketService.this).execute(mac, ip, numberOfPacketsToSend);
-                                removeFromSharedPreferences(quintet);                                                       //remove from storage
-                                scheduledFuturesMap.remove(quintet);                                                        //remove from map
                             }
                             catch (InterruptedException e)
                             {
                                 logException("Exception in run", e);
                             }
+                            finally
+                            {
+                                removeFromSharedPreferences(quintet); //remove from storage
+                                scheduledFuturesMap.remove(quintet); //remove from map
+                            }
                         }
                     }, Integer.parseInt(delay), TimeUnit.SECONDS);
 
 
-                    addToSharedPreferences(quintet,null);                                                                   //add to storage
-                    scheduledFuturesMap.put(quintet,scheduledFuture);                                                       //add to map
+                    addToSharedPreferences(quintet,null); //add to storage
+                    scheduledFuturesMap.put(quintet,scheduledFuture); //add to map
                     latch.countDown();
                 }
                 catch (Exception e)
@@ -99,15 +103,14 @@ public class MagicPacketService extends Service
     public void onCreate()
     {
         logInfo("Start of onCreate()");
-        mPrefs = getSharedPreferences(getApplicationInfo().name, Context.MODE_PRIVATE);
-        printSharedPreferences();
+        sharedPreferences = getSharedPreferences(getApplicationInfo().name, Context.MODE_PRIVATE);
+        Utils.printSharedPreferences(sharedPreferences);
 
         // Start up the thread running the service.  Note that we create a
         // separate thread because the service normally runs in the process's
         // main thread, which we don't want to block.  We also make it
         // background priority so CPU-intensive work will not disrupt our UI.
-        HandlerThread thread = new HandlerThread("ServiceStartArguments",
-                Process.THREAD_PRIORITY_BACKGROUND);
+        HandlerThread thread = new HandlerThread("ServiceStartArguments", Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
 
         // Get the HandlerThread's Looper and use it for our Handler
@@ -116,17 +119,7 @@ public class MagicPacketService extends Service
         logInfo("End of onCreate()");
     }
 
-    private void printSharedPreferences()
-    {
-        Map<String, ?> all = mPrefs.getAll();
-        Set<? extends Map.Entry<String, ?>> entrySet = all.entrySet();
-        Iterator<? extends Map.Entry<String, ?>> iterator = entrySet.iterator();
-        while(iterator.hasNext())
-        {
-            Map.Entry<String, ?> next = iterator.next();
-            logInfo("next = "+next);
-        }
-    }
+
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
@@ -176,7 +169,7 @@ public class MagicPacketService extends Service
     private void addToSharedPreferences(Quintet key,String value)
     {
 
-        SharedPreferences.Editor ed=mPrefs.edit();
+        SharedPreferences.Editor ed=sharedPreferences.edit();
         Gson gson = new Gson();
         ed.putString(gson.toJson(key),null);
         ed.commit();
@@ -184,10 +177,12 @@ public class MagicPacketService extends Service
 
     private void removeFromSharedPreferences(Quintet key)
     {
-        SharedPreferences.Editor ed=mPrefs.edit();
+        SharedPreferences.Editor ed=sharedPreferences.edit();
         Gson gson = new Gson();
         Quintet quintet = gson.fromJson(gson.toJson(key), Quintet.class);
         ed.remove(gson.toJson(key));
         ed.commit();
     }
+
+
 }
