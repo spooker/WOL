@@ -15,5 +15,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SendPacketsActivity"/>
+        <service android:name=".services.MagicPacketService"
+                 android:exported="false">
+        </service>
     </application>
 </manifest>

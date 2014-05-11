@@ -15,7 +15,7 @@ import java.io.IOException;
 public class SendWolPacketsTask extends AsyncTask<String, Integer, Integer>
 {
     private Context context;
-    ProgressDialog progressDialog;
+
 
     private int numberOfPacketsToSend;
 
@@ -28,13 +28,6 @@ public class SendWolPacketsTask extends AsyncTask<String, Integer, Integer>
     protected void onPreExecute()
     {
         super.onPreExecute();
-
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setTitle("Please wait");
-        progressDialog.setMessage("Packets are being sent");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setProgress(0);
-        progressDialog.show();
     }
 
     @Override
@@ -43,7 +36,6 @@ public class SendWolPacketsTask extends AsyncTask<String, Integer, Integer>
         String mac = params[0];
         String ip = params[1];
         numberOfPacketsToSend = Integer.valueOf(params[2]);
-        progressDialog.setMax(numberOfPacketsToSend);
 
         try
         {
@@ -72,8 +64,6 @@ public class SendWolPacketsTask extends AsyncTask<String, Integer, Integer>
     protected void onProgressUpdate(Integer... values)
     {
         super.onProgressUpdate(values);
-        //Update progressbar
-        progressDialog.setProgress(values[0]);
 
     }
 
@@ -81,8 +71,6 @@ public class SendWolPacketsTask extends AsyncTask<String, Integer, Integer>
     protected void onPostExecute(Integer result)
     {
 
-        //Dismiss progressDialog
-        progressDialog.dismiss();
         Toast.makeText(context,
                 numberOfPacketsToSend + " packets were sent", Toast.LENGTH_LONG).show();
     }
