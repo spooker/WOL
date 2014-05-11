@@ -23,6 +23,7 @@ public class MagicPacketService extends Service
     private ServiceHandler mServiceHandler;
     //ScheduledExecutorService scheduledTaskExecutor = Executors.newScheduledThreadPool(5);
     private ScheduledExecutorService scheduledTaskExecutor = Executors.newSingleThreadScheduledExecutor();
+    private static final Map<Quintet, ScheduledFuture> scheduledFuturesMap = new ConcurrentHashMap<Quintet, ScheduledFuture>();
 
     // Handler that receives messages from the thread
     private final class ServiceHandler extends Handler
@@ -39,7 +40,6 @@ public class MagicPacketService extends Service
             // Normally we would do some work here, like download a file.
             synchronized (this)
             {
-                logInfo("Start of SYNC CODE in handleMessage");
                 try
                 {
                     Bundle data = msg.getData();
@@ -50,16 +50,30 @@ public class MagicPacketService extends Service
                     final Date now = new Date();
                     final Quintet quintet = new Quintet(mac, ip, numberOfPacketsToSend, delay, now);
 
+                    final CountDownLatch latch = new CountDownLatch(1);
                     ScheduledFuture scheduledFuture = scheduledTaskExecutor.schedule(new Runnable()
                     {
                         @Override
                         public void run()
                         {
-                            logInfo("scheduleFuture thread started . Thread.currentThread() = " + Thread.currentThread());
-                            new SendWolPacketsTask(MagicPacketService.this).execute(mac, ip, numberOfPacketsToSend);
-                            logInfo("scheduleFuture thread ended . Thread.currentThread() = " + Thread.currentThread());
+                            try
+                            {
+                                logInfo("scheduleFuture thread started . Thread.currentThread() = " + Thread.currentThread());
+                                //Synchronize with other thread
+                                latch.await();
+                                new SendWolPacketsTask(MagicPacketService.this).execute(mac, ip, numberOfPacketsToSend);
+                                scheduledFuturesMap.remove(quintet);
+                            }
+                            catch (InterruptedException e)
+                            {
+                                logException("Exception in run", e);
+                            }
                         }
                     }, Integer.parseInt(delay), TimeUnit.SECONDS);
+
+
+                    scheduledFuturesMap.put(quintet,scheduledFuture);
+                    latch.countDown();
                 }
                 catch (Exception e)
                 {
@@ -99,6 +113,7 @@ public class MagicPacketService extends Service
     {
         logInfo("Start of onStartCommand()");
         Toast.makeText(this, "service starting", Toast.LENGTH_SHORT).show();
+        logInfo("scheduledFuturesMap size " + scheduledFuturesMap.size());
 
         //Get extras from intent as Bundle to pass them to the message
         Bundle extras = intent.getExtras();
