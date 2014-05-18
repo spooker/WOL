@@ -9,11 +9,14 @@ import android.os.Process;
 import android.util.Log;
 import android.widget.Toast;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import net.spooker.WakeOnLan.SendPacketsActivity;
 import net.spooker.WakeOnLan.SendWolPacketsTask;
 import net.spooker.WakeOnLan.utils.Utils;
+import org.javatuples.Quartet;
 import org.javatuples.Quintet;
 
+import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -27,8 +30,9 @@ public class MagicPacketService extends Service
     private ServiceHandler mServiceHandler;
     //ScheduledExecutorService scheduledTaskExecutor = Executors.newScheduledThreadPool(5);
     private ScheduledExecutorService scheduledTaskExecutor = Executors.newSingleThreadScheduledExecutor();
-    private static final Map<Quintet, ScheduledFuture> scheduledFuturesMap = new ConcurrentHashMap<Quintet, ScheduledFuture>();
+    private static final Map<Quartet<String, String, String, Long>, ScheduledFuture> scheduledFuturesMap = new ConcurrentHashMap<Quartet<String, String, String, Long>, ScheduledFuture>();
     private SharedPreferences sharedPreferences;
+    private final Gson gson = new Gson();
 
 
     // Handler that receives messages from the thread
@@ -49,40 +53,54 @@ public class MagicPacketService extends Service
                 try
                 {
                     Bundle data = msg.getData();
-                    final String mac = data.getString("mac");
-                    final String ip = data.getString("ip");
-                    final String numberOfPacketsToSend = data.getString("numberOfPacketsToSend");
-                    final Long when = data.getLong("when");
-                    final Long now = (Long) Calendar.getInstance().getTimeInMillis();
-                    final Quintet<String,String,String,Long,Long> quintet = new Quintet<String,String,String,Long,Long>(mac, ip, numberOfPacketsToSend, when, now);
-                    final Long delay = when-now;
-
-                    final CountDownLatch latch = new CountDownLatch(1);
-                    ScheduledFuture scheduledFuture = scheduledTaskExecutor.schedule(new Runnable()
+                    Gson gson = new Gson();
+                    Type quartet = new TypeToken<Quartet<String, String, String, Long>>()
                     {
-                        @Override
-                        public void run()
+                    }.getType();
+                    final Quartet<String, String, String, Long> parameterObject = gson.fromJson((String) data.get("parameterObject"), quartet);
+                    logInfo("parameterObject = " + parameterObject);
+
+                    final String mac = parameterObject.getValue0();
+                    final String ip = parameterObject.getValue1();
+                    final String numberOfPacketsToSend = parameterObject.getValue2();
+                    final Long when = parameterObject.getValue3();
+                    final Long now = (Long) Calendar.getInstance().getTimeInMillis();
+                    final Long delay = when - now;
+
+                    if (delay >= 0)
+                    {
+                        final CountDownLatch latch = new CountDownLatch(1);
+                        ScheduledFuture scheduledFuture = scheduledTaskExecutor.schedule(new Runnable()
                         {
-                            try
+                            @Override
+                            public void run()
                             {
-                                logInfo("scheduleFuture thread started . Thread.currentThread() = " + Thread.currentThread());
-                                latch.await(); //Synchronize with parent thread when CountDownLatch reaches 0
-                                new SendWolPacketsTask(MagicPacketService.this).execute(mac, ip, numberOfPacketsToSend);
-                                removeFromSharedPreferences(quintet); //remove from storage
-                                scheduledFuturesMap.remove(quintet); //remove from map
-                                logInfo("scheduleFuture thread ended . Thread.currentThread() = " + Thread.currentThread());
+                                try
+                                {
+                                    logInfo("scheduleFuture thread started . Thread.currentThread() = " + Thread.currentThread());
+                                    latch.await(); //Synchronize with parent thread so that we can save it to storage and the map first
+                                    new SendWolPacketsTask(MagicPacketService.this).execute(mac, ip, numberOfPacketsToSend);
+                                    removeFromSharedPreferences(parameterObject); //remove from storage
+                                    scheduledFuturesMap.remove(parameterObject); //remove from map
+                                    logInfo("scheduleFuture thread ended . Thread.currentThread() = " + Thread.currentThread());
+                                }
+                                catch (InterruptedException e)
+                                {
+                                    logException("Exception in run", e);
+                                }
                             }
-                            catch (InterruptedException e)
-                            {
-                                logException("Exception in run", e);
-                            }
-                        }
-                    }, delay, TimeUnit.MILLISECONDS);
+                        }, delay, TimeUnit.MILLISECONDS);
 
 
-                    addToSharedPreferences(quintet,null); //add to storage
-                    scheduledFuturesMap.put(quintet,scheduledFuture); //add to map
-                    latch.countDown();
+                        addToSharedPreferences(parameterObject, null); //add to storage
+                        scheduledFuturesMap.put(parameterObject, scheduledFuture); //add to map
+                        latch.countDown();
+                    } else
+                    {
+                        logInfo("Scheduled time for this event is in the past. Removing event from storage and map");
+                        removeFromSharedPreferences(parameterObject); //remove from storage
+                        scheduledFuturesMap.remove(parameterObject); //remove from map
+                    }
                 }
                 catch (Exception e)
                 {
@@ -119,7 +137,6 @@ public class MagicPacketService extends Service
     }
 
 
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
@@ -127,15 +144,27 @@ public class MagicPacketService extends Service
         Toast.makeText(this, "service starting", Toast.LENGTH_SHORT).show();
         logInfo("scheduledFuturesMap size " + scheduledFuturesMap.size());
 
-        //Get extras from intent as Bundle to pass them to the message
-        Bundle extras = intent.getExtras();
+        //read params that were passed to the intent's extras
+        Type listOfQuartet = new TypeToken<List<Quartet<String, String, String, Long>>>()
+        {
+        }.getType();
+        final List<Quartet<String, String, String, Long>> listOfParameterObjects = gson.fromJson((String) intent.getExtras().get("listOfParameterObjects"), listOfQuartet);
 
-        // For each start request, send a message to start a job and deliver the
-        // start ID so we know which request we're stopping when we finish the job
-        Message msg = mServiceHandler.obtainMessage();
-        msg.arg1 = startId;
-        msg.setData(extras);
-        mServiceHandler.sendMessage(msg);
+        for (Quartet<String, String, String, Long> parameterObject : listOfParameterObjects)
+        {
+            //convert to its String representation
+            String parameterObjectString = gson.toJson(parameterObject);
+            Bundle extras = new Bundle();
+            extras.putString("parameterObject", parameterObjectString);
+
+            // send a message to start a job and deliver the
+            // start ID so we know which request we're stopping when we finish the job
+            Message msg = mServiceHandler.obtainMessage();
+            msg.arg1 = startId;
+            msg.setData(extras);
+            mServiceHandler.sendMessage(msg);
+        }
+
 
         // If we get killed, after returning from here, restart
         logInfo("End of onStartCommand()");
@@ -165,19 +194,17 @@ public class MagicPacketService extends Service
         Log.e(TAG, msg, e);
     }
 
-    private void addToSharedPreferences(Quintet<String,String,String,Long,Long> key,String value)
+    private void addToSharedPreferences(Quartet<String, String, String, Long> key, String value)
     {
 
-        SharedPreferences.Editor ed=sharedPreferences.edit();
-        Gson gson = new Gson();
-        ed.putString(gson.toJson(key),null);
+        SharedPreferences.Editor ed = sharedPreferences.edit();
+        ed.putString(gson.toJson(key), value);
         ed.commit();
     }
 
-    private void removeFromSharedPreferences(Quintet<String,String,String,Long,Long> key)
+    private void removeFromSharedPreferences(Quartet<String, String, String, Long> key)
     {
-        SharedPreferences.Editor ed=sharedPreferences.edit();
-        Gson gson = new Gson();
+        SharedPreferences.Editor ed = sharedPreferences.edit();
         ed.remove(gson.toJson(key));
         ed.commit();
     }
