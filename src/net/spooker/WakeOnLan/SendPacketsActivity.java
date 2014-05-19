@@ -53,7 +53,7 @@ public class SendPacketsActivity extends Activity
                 final Long scheduledDt  = (Long) whenCalendar.getTimeInMillis();
 
                 //Create listOfParameterObjects
-                MagicPacketService.ParameterObject parameterObject = new MagicPacketService.ParameterObject(mac,ip,numberOfPacketsToSend,createdDt,scheduledDt);
+                MagicPacketService.ParameterObject parameterObject = new MagicPacketService.ParameterObject(mac,ip,numberOfPacketsToSend,createdDt,scheduledDt,TimeUnit.MILLISECONDS);
                 final List<MagicPacketService.ParameterObject> listOfParameterObjects = new ArrayList<MagicPacketService.ParameterObject>();
                 listOfParameterObjects.add(parameterObject);
 

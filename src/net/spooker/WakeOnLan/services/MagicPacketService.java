@@ -30,7 +30,7 @@ public class MagicPacketService extends Service
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
     //ScheduledExecutorService scheduledTaskExecutor = Executors.newScheduledThreadPool(5);
-    private ScheduledExecutorService scheduledTaskExecutor = Executors.newSingleThreadScheduledExecutor();
+    private final ScheduledExecutorService scheduledTaskExecutor = Executors.newSingleThreadScheduledExecutor();
     private static final Map<ParameterObject, ScheduledFuture> scheduledFuturesMap = new ConcurrentHashMap<ParameterObject, ScheduledFuture>();
     private SharedPreferences sharedPreferences;
     private final Gson gson = new Gson();
@@ -53,8 +53,7 @@ public class MagicPacketService extends Service
             {
                 try
                 {
-                    Bundle data = msg.getData();
-                    Gson gson = new Gson();
+                    final Bundle data = msg.getData();
                     final ParameterObject parameterObject = gson.fromJson((String) data.get("parameterObject"), ParameterObject.class);
                     logInfo("parameterObject = " + parameterObject);
 
@@ -63,12 +62,13 @@ public class MagicPacketService extends Service
                     final Integer numberOfPacketsToSend = parameterObject.getNumberOfPacketsToSend();
                     final Long createdDt = parameterObject.getCreatedDt();
                     final Long scheduledDt = parameterObject.getScheduledDt();
+                    final TimeUnit timeUnit = parameterObject.getTimeUnit();
                     final Long delay = scheduledDt - createdDt;
 
                     if (delay >= 0)
                     {
                         final CountDownLatch latch = new CountDownLatch(1);
-                        ScheduledFuture scheduledFuture = scheduledTaskExecutor.schedule(new Runnable()
+                        final Runnable runnable = new Runnable()
                         {
                             @Override
                             public void run()
@@ -99,9 +99,9 @@ public class MagicPacketService extends Service
                                     e.printStackTrace();
                                 }
                             }
-                        }, delay, TimeUnit.MILLISECONDS);
+                        };
 
-
+                        final ScheduledFuture scheduledFuture = scheduledTaskExecutor.schedule(runnable, delay, timeUnit);
                         addToSharedPreferences(parameterObject, null); //add to storage
                         scheduledFuturesMap.put(parameterObject, scheduledFuture); //add to map
                         latch.countDown();
@@ -221,59 +221,21 @@ public class MagicPacketService extends Service
 
     public static class ParameterObject
     {
-        @Override
-        public boolean equals(Object o)
-        {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            ParameterObject that = (ParameterObject) o;
-
-            if (!createdDt.equals(that.createdDt)) return false;
-            if (!ip.equals(that.ip)) return false;
-            if (!mac.equals(that.mac)) return false;
-            if (!numberOfPacketsToSend.equals(that.numberOfPacketsToSend)) return false;
-            if (!scheduledDt.equals(that.scheduledDt)) return false;
-
-            return true;
-        }
-
-        @Override
-        public String toString()
-        {
-            return "ParameterObject{" +
-                    "mac='" + mac + '\'' +
-                    ", ip='" + ip + '\'' +
-                    ", numberOfPacketsToSend=" + numberOfPacketsToSend +
-                    ", createdDt=" + createdDt +
-                    ", scheduledDt=" + scheduledDt +
-                    '}';
-        }
-
-        @Override
-        public int hashCode()
-        {
-            int result = mac.hashCode();
-            result = 31 * result + ip.hashCode();
-            result = 31 * result + numberOfPacketsToSend.hashCode();
-            result = 31 * result + createdDt.hashCode();
-            result = 31 * result + scheduledDt.hashCode();
-            return result;
-        }
-
         private String mac;
         private String ip;
         private Integer numberOfPacketsToSend;
         private Long createdDt;
         private Long scheduledDt;
+        private TimeUnit timeUnit;
 
-        public ParameterObject(String mac, String ip, Integer numberOfPacketsToSend, Long createdDt, Long scheduledDt)
+        public ParameterObject(String mac, String ip, Integer numberOfPacketsToSend, Long createdDt, Long scheduledDt, TimeUnit timeUnit)
         {
             this.mac = mac;
             this.ip = ip;
             this.numberOfPacketsToSend = numberOfPacketsToSend;
             this.createdDt = createdDt;
             this.scheduledDt = scheduledDt;
+            this.timeUnit = timeUnit;
         }
 
         public String getMac()
@@ -324,6 +286,46 @@ public class MagicPacketService extends Service
         public void setScheduledDt(Long scheduledDt)
         {
             this.scheduledDt = scheduledDt;
+        }
+
+        public TimeUnit getTimeUnit()
+        {
+            return timeUnit;
+        }
+
+        public void setTimeUnit(TimeUnit timeUnit)
+        {
+            this.timeUnit = timeUnit;
+        }
+
+        @Override
+        public boolean equals(Object o)
+        {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            ParameterObject that = (ParameterObject) o;
+
+            if (!createdDt.equals(that.createdDt)) return false;
+            if (!ip.equals(that.ip)) return false;
+            if (!mac.equals(that.mac)) return false;
+            if (!numberOfPacketsToSend.equals(that.numberOfPacketsToSend)) return false;
+            if (!scheduledDt.equals(that.scheduledDt)) return false;
+            if (timeUnit != that.timeUnit) return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode()
+        {
+            int result = mac.hashCode();
+            result = 31 * result + ip.hashCode();
+            result = 31 * result + numberOfPacketsToSend.hashCode();
+            result = 31 * result + createdDt.hashCode();
+            result = 31 * result + scheduledDt.hashCode();
+            result = 31 * result + timeUnit.hashCode();
+            return result;
         }
     }
 
