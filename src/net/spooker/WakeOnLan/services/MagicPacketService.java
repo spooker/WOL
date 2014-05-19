@@ -10,13 +10,14 @@ import android.util.Log;
 import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import net.spooker.WakeOnLan.SendPacketsActivity;
-import net.spooker.WakeOnLan.SendWolPacketsTask;
+import net.mafro.android.wakeonlan.MagicPacket;
 import net.spooker.WakeOnLan.utils.Utils;
 import org.javatuples.Quartet;
-import org.javatuples.Quintet;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -79,14 +80,26 @@ public class MagicPacketService extends Service
                                 {
                                     logInfo("scheduleFuture thread started . Thread.currentThread() = " + Thread.currentThread());
                                     latch.await(); //Synchronize with parent thread so that we can save it to storage and the map first
-                                    new SendWolPacketsTask(MagicPacketService.this).execute(mac, ip, numberOfPacketsToSend);
+                                    MagicPacket.send(mac, ip); //Send a Magic Packet
                                     removeFromSharedPreferences(parameterObject); //remove from storage
                                     scheduledFuturesMap.remove(parameterObject); //remove from map
                                     logInfo("scheduleFuture thread ended . Thread.currentThread() = " + Thread.currentThread());
                                 }
                                 catch (InterruptedException e)
                                 {
-                                    logException("Exception in run", e);
+                                    e.printStackTrace();
+                                }
+                                catch (SocketException e)
+                                {
+                                    e.printStackTrace();
+                                }
+                                catch (UnknownHostException e)
+                                {
+                                    e.printStackTrace();
+                                }
+                                catch (IOException e)
+                                {
+                                    e.printStackTrace();
                                 }
                             }
                         }, delay, TimeUnit.MILLISECONDS);
