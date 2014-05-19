@@ -43,15 +43,18 @@ public class SendPacketsActivity extends Activity
             {
                 final String mac = "70:71:bc:19:1b:c3";
                 final String ip = "spooker.noip.me";
-                final String numberOfPacketsToSend = "150";
+                final Integer numberOfPacketsToSend = 150;
 
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.SECOND,60);
-                final Long when  = (Long) calendar.getTimeInMillis();
+                Calendar nowCalendar = Calendar.getInstance();
+                Calendar whenCalendar = (Calendar) nowCalendar.clone();
+                whenCalendar.add(Calendar.SECOND,60);
+
+                final Long createdDt = (Long) nowCalendar.getTimeInMillis();
+                final Long scheduledDt  = (Long) whenCalendar.getTimeInMillis();
 
                 //Create listOfParameterObjects
-                final Quartet<String,String,String,Long> parameterObject = new Quartet<String,String,String,Long>(mac, ip, numberOfPacketsToSend, when);
-                final List<Quartet<String,String,String,Long>> listOfParameterObjects = new ArrayList<Quartet<String,String,String,Long>>();
+                MagicPacketService.ParameterObject parameterObject = new MagicPacketService.ParameterObject(mac,ip,numberOfPacketsToSend,createdDt,scheduledDt);
+                final List<MagicPacketService.ParameterObject> listOfParameterObjects = new ArrayList<MagicPacketService.ParameterObject>();
                 listOfParameterObjects.add(parameterObject);
 
                 //convert to its String representation

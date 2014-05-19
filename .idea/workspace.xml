@@ -75,22 +75,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MagicPacketService.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="MagicPacketService.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/services/MagicPacketService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="25" selection-start="2998" selection-end="2998" vertical-scroll-proportion="0.08141112" vertical-offset="875" max-vertical-offset="3621">
+            <state line="163" column="9" selection-start="7177" selection-end="7177" vertical-scroll-proportion="0.0" vertical-offset="2703" max-vertical-offset="5389">
               <folding>
-                <element signature="e#4667#4668#0" expanded="true" />
+                <element signature="e#1194#1228#0" expanded="true" />
+                <element signature="e#2784#4520#0" expanded="true" />
+                <element signature="e#4493#4494#0" expanded="true" />
+                <element signature="e#10720#10721#0" expanded="true" />
+                <element signature="e#10754#10755#0" expanded="true" />
+                <element signature="e#10804#10805#0" expanded="true" />
+                <element signature="e#10842#10843#0" expanded="true" />
+                <element signature="e#10883#10884#0" expanded="true" />
+                <element signature="e#10916#10917#0" expanded="true" />
+                <element signature="e#10964#10965#0" expanded="true" />
+                <element signature="e#11000#11001#0" expanded="true" />
+                <element signature="e#11061#11062#0" expanded="true" />
+                <element signature="e#11113#11114#0" expanded="true" />
+                <element signature="e#11200#11201#0" expanded="true" />
+                <element signature="e#11274#11275#0" expanded="true" />
+                <element signature="e#11320#11321#0" expanded="true" />
+                <element signature="e#11360#11361#0" expanded="true" />
+                <element signature="e#11420#11421#0" expanded="true" />
+                <element signature="e#11470#11471#0" expanded="true" />
+                <element signature="e#11518#11519#0" expanded="true" />
+                <element signature="e#11560#11561#0" expanded="true" />
+                <element signature="e#11624#11625#0" expanded="true" />
+                <element signature="e#11678#11679#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Map.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://C:/Program Files/Android/adt-bundle-windows-x86_64-20131030/sdk/sources/android-18/java/util/Map.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="222" column="13" selection-start="7864" selection-end="7864" vertical-scroll-proportion="0.0" vertical-offset="3774" max-vertical-offset="4403">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -98,7 +111,7 @@
       <file leaf-file-name="Utils.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/utils/Utils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="56" selection-start="696" selection-end="696" vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="748">
+            <state line="23" column="56" selection-start="696" selection-end="696" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
               <folding />
             </state>
           </provider>
@@ -107,7 +120,7 @@
       <file leaf-file-name="SharedPreferences.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://C:/Program Files/Android/adt-bundle-windows-x86_64-20131030/sdk/sources/android-18/android/content/SharedPreferences.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="189" column="16" selection-start="7835" selection-end="7835" vertical-scroll-proportion="0.0" vertical-offset="3213" max-vertical-offset="6409">
+            <state line="189" column="16" selection-start="7835" selection-end="7835" vertical-scroll-proportion="0.0" vertical-offset="3213" max-vertical-offset="6154">
               <folding />
             </state>
           </provider>
@@ -116,7 +129,7 @@
       <file leaf-file-name="SendPacketsActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/SendPacketsActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="16" selection-start="2047" selection-end="2085" vertical-scroll-proportion="0.0" vertical-offset="62" max-vertical-offset="799">
+            <state line="56" column="136" selection-start="2139" selection-end="2139" vertical-scroll-proportion="0.0" vertical-offset="96" max-vertical-offset="850">
               <folding />
             </state>
           </provider>
@@ -125,28 +138,18 @@
       <file leaf-file-name="StartUpActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/StartUpActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="13" selection-start="293" selection-end="293" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="714">
+            <state line="12" column="13" selection-start="293" selection-end="293" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="39" selection-start="258" selection-end="260" vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="629">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BootCompletedBroadcastReceiver.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="BootCompletedBroadcastReceiver.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/broadcastReceivers/BootCompletedBroadcastReceiver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="9" selection-start="922" selection-end="922" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1258">
+            <state line="18" column="3" selection-start="559" selection-end="562" vertical-scroll-proportion="0.0081411125" vertical-offset="62" max-vertical-offset="1258">
               <folding>
                 <element signature="e#1180#1216#0" expanded="true" />
-                <element signature="e#2500#2527#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -247,6 +250,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="WakeOnLan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WakeOnLan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WOL" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="net" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WakeOnLan" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="services" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -598,12 +627,12 @@
       <workItem from="1400431256757" duration="2216000" />
       <workItem from="1400433496552" duration="1373000" />
       <workItem from="1400435038673" duration="5519000" />
-      <workItem from="1400523939205" duration="1627000" />
+      <workItem from="1400523939205" duration="4686000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67885000" />
+    <option name="totallyTimeSpent" value="70944000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
@@ -685,7 +714,29 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="33" selection-start="296" selection-end="310" vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="1683">
           <folding>
-            <element signature="e#4667#4668#0" expanded="true" />
+            <element signature="e#1194#1228#0" expanded="true" />
+            <element signature="e#2784#4520#0" expanded="true" />
+            <element signature="e#4493#4494#0" expanded="true" />
+            <element signature="e#10720#10721#0" expanded="true" />
+            <element signature="e#10754#10755#0" expanded="true" />
+            <element signature="e#10804#10805#0" expanded="true" />
+            <element signature="e#10842#10843#0" expanded="true" />
+            <element signature="e#10883#10884#0" expanded="true" />
+            <element signature="e#10916#10917#0" expanded="true" />
+            <element signature="e#10964#10965#0" expanded="true" />
+            <element signature="e#11000#11001#0" expanded="true" />
+            <element signature="e#11061#11062#0" expanded="true" />
+            <element signature="e#11113#11114#0" expanded="true" />
+            <element signature="e#11200#11201#0" expanded="true" />
+            <element signature="e#11274#11275#0" expanded="true" />
+            <element signature="e#11320#11321#0" expanded="true" />
+            <element signature="e#11360#11361#0" expanded="true" />
+            <element signature="e#11420#11421#0" expanded="true" />
+            <element signature="e#11470#11471#0" expanded="true" />
+            <element signature="e#11518#11519#0" expanded="true" />
+            <element signature="e#11560#11561#0" expanded="true" />
+            <element signature="e#11624#11625#0" expanded="true" />
+            <element signature="e#11678#11679#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -912,6 +963,13 @@
         <state line="735" column="25" selection-start="27443" selection-end="27443" vertical-scroll-proportion="0.0" vertical-offset="11866" max-vertical-offset="23205" />
       </provider>
     </entry>
+    <entry file="file://C:/Program Files/Android/adt-bundle-windows-x86_64-20131030/sdk/sources/android-18/android/os/AsyncTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="619" column="25" selection-start="24984" selection-end="24984" vertical-scroll-proportion="0.33285093" vertical-offset="9698" max-vertical-offset="10846">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/StartUpActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="12" column="13" selection-start="293" selection-end="293" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
@@ -926,13 +984,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Program Files/Android/adt-bundle-windows-x86_64-20131030/sdk/sources/android-18/java/util/Map.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="222" column="13" selection-start="7864" selection-end="7864" vertical-scroll-proportion="0.0" vertical-offset="3307" max-vertical-offset="4148">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/utils/Utils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="56" selection-start="696" selection-end="696" vertical-scroll-proportion="0.0" vertical-offset="10" max-vertical-offset="663">
@@ -940,35 +991,56 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/broadcastReceivers/BootCompletedBroadcastReceiver.java">
+    <entry file="file://C:/Program Files/Android/adt-bundle-windows-x86_64-20131030/sdk/sources/android-18/java/util/Map.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="9" selection-start="922" selection-end="922" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1258">
-          <folding>
-            <element signature="e#1180#1216#0" expanded="true" />
-            <element signature="e#2500#2527#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Program Files/Android/adt-bundle-windows-x86_64-20131030/sdk/sources/android-18/android/os/AsyncTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="619" column="25" selection-start="24984" selection-end="24984" vertical-scroll-proportion="0.33285093" vertical-offset="9698" max-vertical-offset="10846">
+        <state line="222" column="13" selection-start="7864" selection-end="7864" vertical-scroll-proportion="0.14654003" vertical-offset="3411" max-vertical-offset="4148">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/SendPacketsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="16" selection-start="2047" selection-end="2085" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="884">
+        <state line="56" column="136" selection-start="2139" selection-end="2139" vertical-scroll-proportion="0.0" vertical-offset="96" max-vertical-offset="850">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/services/MagicPacketService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="25" selection-start="2998" selection-end="2998" vertical-scroll-proportion="0.08141112" vertical-offset="875" max-vertical-offset="3621">
+        <state line="163" column="9" selection-start="7177" selection-end="7177" vertical-scroll-proportion="0.0" vertical-offset="714" max-vertical-offset="5389">
           <folding>
-            <element signature="e#4667#4668#0" expanded="true" />
+            <element signature="e#1194#1228#0" expanded="true" />
+            <element signature="e#2784#4520#0" expanded="true" />
+            <element signature="e#4493#4494#0" expanded="true" />
+            <element signature="e#10720#10721#0" expanded="true" />
+            <element signature="e#10754#10755#0" expanded="true" />
+            <element signature="e#10804#10805#0" expanded="true" />
+            <element signature="e#10842#10843#0" expanded="true" />
+            <element signature="e#10883#10884#0" expanded="true" />
+            <element signature="e#10916#10917#0" expanded="true" />
+            <element signature="e#10964#10965#0" expanded="true" />
+            <element signature="e#11000#11001#0" expanded="true" />
+            <element signature="e#11061#11062#0" expanded="true" />
+            <element signature="e#11113#11114#0" expanded="true" />
+            <element signature="e#11200#11201#0" expanded="true" />
+            <element signature="e#11274#11275#0" expanded="true" />
+            <element signature="e#11320#11321#0" expanded="true" />
+            <element signature="e#11360#11361#0" expanded="true" />
+            <element signature="e#11420#11421#0" expanded="true" />
+            <element signature="e#11470#11471#0" expanded="true" />
+            <element signature="e#11518#11519#0" expanded="true" />
+            <element signature="e#11560#11561#0" expanded="true" />
+            <element signature="e#11624#11625#0" expanded="true" />
+            <element signature="e#11678#11679#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/broadcastReceivers/BootCompletedBroadcastReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="3" selection-start="559" selection-end="562" vertical-scroll-proportion="0.0081411125" vertical-offset="62" max-vertical-offset="1258">
+          <folding>
+            <element signature="e#1180#1216#0" expanded="true" />
           </folding>
         </state>
       </provider>

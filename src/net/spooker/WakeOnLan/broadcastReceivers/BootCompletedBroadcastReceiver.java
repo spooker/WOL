@@ -30,7 +30,7 @@ private static final String TAG = "BootCompletedBroadcastReceiver";
         {
             logInfo("onReceive started");
             sharedPreferences = context.getSharedPreferences(context.getApplicationInfo().name,Context.MODE_PRIVATE);
-            final List<Quartet<String,String,String,Long>> listOfParameterObjects = new ArrayList<Quartet<String,String,String,Long>>();
+            final List<MagicPacketService.ParameterObject> listOfParameterObjects = new ArrayList<MagicPacketService.ParameterObject>();
 
             Map<String, ?> all = sharedPreferences.getAll();
             Set<? extends Map.Entry<String, ?>> entrySet = all.entrySet();
@@ -38,25 +38,25 @@ private static final String TAG = "BootCompletedBroadcastReceiver";
             while (iterator.hasNext())
             {
                 Map.Entry<String, ?> next = iterator.next();
-                String quintetJson = next.getKey();
+                String parameterObjectJson = next.getKey();
 
-                Type quartetType = new TypeToken<Quartet<String,String,String,Long>>() {}.getType();
-                Quartet<String,String,String,Long> quintet = gson.fromJson(quintetJson,quartetType);
 
-                final String mac = quintet.getValue0();
-                final String ip = quintet.getValue1();
-                final String numberOfPacketsToSend = quintet.getValue2();
-                final Long when = quintet.getValue3();
-                final Long now = (Long) Calendar.getInstance().getTimeInMillis();
+                MagicPacketService.ParameterObject parameterObject = gson.fromJson(parameterObjectJson,MagicPacketService.ParameterObject.class);
+
+                final String mac = parameterObject.getMac();
+                final String ip = parameterObject.getIp();
+                final Integer numberOfPacketsToSend = parameterObject.getNumberOfPacketsToSend();
+                final Long createdDt = parameterObject.getCreatedDt();
+                final Long scheduledDt = parameterObject.getScheduledDt();
 
                 logInfo("=================");
                 logInfo("mac = " + mac);
                 logInfo("ip = " + ip);
                 logInfo("numberOfPacketsToSend = " + numberOfPacketsToSend);
-                logInfo("when = " + when);
+                logInfo("createdDt = " + createdDt);
+                logInfo("scheduledDt = " + scheduledDt);
 
                 //Create params
-                final Quartet<String,String,String,Long> parameterObject = new Quartet<String,String,String,Long>(mac, ip, numberOfPacketsToSend, when);
                 listOfParameterObjects.add(parameterObject);
             }
 

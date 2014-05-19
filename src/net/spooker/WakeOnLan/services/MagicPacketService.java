@@ -31,7 +31,7 @@ public class MagicPacketService extends Service
     private ServiceHandler mServiceHandler;
     //ScheduledExecutorService scheduledTaskExecutor = Executors.newScheduledThreadPool(5);
     private ScheduledExecutorService scheduledTaskExecutor = Executors.newSingleThreadScheduledExecutor();
-    private static final Map<Quartet<String, String, String, Long>, ScheduledFuture> scheduledFuturesMap = new ConcurrentHashMap<Quartet<String, String, String, Long>, ScheduledFuture>();
+    private static final Map<ParameterObject, ScheduledFuture> scheduledFuturesMap = new ConcurrentHashMap<ParameterObject, ScheduledFuture>();
     private SharedPreferences sharedPreferences;
     private final Gson gson = new Gson();
 
@@ -55,18 +55,15 @@ public class MagicPacketService extends Service
                 {
                     Bundle data = msg.getData();
                     Gson gson = new Gson();
-                    Type quartet = new TypeToken<Quartet<String, String, String, Long>>()
-                    {
-                    }.getType();
-                    final Quartet<String, String, String, Long> parameterObject = gson.fromJson((String) data.get("parameterObject"), quartet);
+                    final ParameterObject parameterObject = gson.fromJson((String) data.get("parameterObject"), ParameterObject.class);
                     logInfo("parameterObject = " + parameterObject);
 
-                    final String mac = parameterObject.getValue0();
-                    final String ip = parameterObject.getValue1();
-                    final String numberOfPacketsToSend = parameterObject.getValue2();
-                    final Long when = parameterObject.getValue3();
-                    final Long now = (Long) Calendar.getInstance().getTimeInMillis();
-                    final Long delay = when - now;
+                    final String mac = parameterObject.getMac();
+                    final String ip = parameterObject.getIp();
+                    final Integer numberOfPacketsToSend = parameterObject.getNumberOfPacketsToSend();
+                    final Long createdDt = parameterObject.getCreatedDt();
+                    final Long scheduledDt = parameterObject.getScheduledDt();
+                    final Long delay = scheduledDt - createdDt;
 
                     if (delay >= 0)
                     {
@@ -158,12 +155,12 @@ public class MagicPacketService extends Service
         logInfo("scheduledFuturesMap size " + scheduledFuturesMap.size());
 
         //read params that were passed to the intent's extras
-        Type listOfQuartet = new TypeToken<List<Quartet<String, String, String, Long>>>()
+        Type genericType = new TypeToken<List<ParameterObject>>()
         {
         }.getType();
-        final List<Quartet<String, String, String, Long>> listOfParameterObjects = gson.fromJson((String) intent.getExtras().get("listOfParameterObjects"), listOfQuartet);
+        final List<ParameterObject> listOfParameterObjects = gson.fromJson((String) intent.getExtras().get("listOfParameterObjects"), genericType);
 
-        for (Quartet<String, String, String, Long> parameterObject : listOfParameterObjects)
+        for (ParameterObject parameterObject : listOfParameterObjects)
         {
             //convert to its String representation
             String parameterObjectString = gson.toJson(parameterObject);
@@ -207,7 +204,7 @@ public class MagicPacketService extends Service
         Log.e(TAG, msg, e);
     }
 
-    private void addToSharedPreferences(Quartet<String, String, String, Long> key, String value)
+    private void addToSharedPreferences(ParameterObject key, String value)
     {
 
         SharedPreferences.Editor ed = sharedPreferences.edit();
@@ -215,12 +212,119 @@ public class MagicPacketService extends Service
         ed.commit();
     }
 
-    private void removeFromSharedPreferences(Quartet<String, String, String, Long> key)
+    private void removeFromSharedPreferences(ParameterObject key)
     {
         SharedPreferences.Editor ed = sharedPreferences.edit();
         ed.remove(gson.toJson(key));
         ed.commit();
     }
 
+    public static class ParameterObject
+    {
+        @Override
+        public boolean equals(Object o)
+        {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            ParameterObject that = (ParameterObject) o;
+
+            if (!createdDt.equals(that.createdDt)) return false;
+            if (!ip.equals(that.ip)) return false;
+            if (!mac.equals(that.mac)) return false;
+            if (!numberOfPacketsToSend.equals(that.numberOfPacketsToSend)) return false;
+            if (!scheduledDt.equals(that.scheduledDt)) return false;
+
+            return true;
+        }
+
+        @Override
+        public String toString()
+        {
+            return "ParameterObject{" +
+                    "mac='" + mac + '\'' +
+                    ", ip='" + ip + '\'' +
+                    ", numberOfPacketsToSend=" + numberOfPacketsToSend +
+                    ", createdDt=" + createdDt +
+                    ", scheduledDt=" + scheduledDt +
+                    '}';
+        }
+
+        @Override
+        public int hashCode()
+        {
+            int result = mac.hashCode();
+            result = 31 * result + ip.hashCode();
+            result = 31 * result + numberOfPacketsToSend.hashCode();
+            result = 31 * result + createdDt.hashCode();
+            result = 31 * result + scheduledDt.hashCode();
+            return result;
+        }
+
+        private String mac;
+        private String ip;
+        private Integer numberOfPacketsToSend;
+        private Long createdDt;
+        private Long scheduledDt;
+
+        public ParameterObject(String mac, String ip, Integer numberOfPacketsToSend, Long createdDt, Long scheduledDt)
+        {
+            this.mac = mac;
+            this.ip = ip;
+            this.numberOfPacketsToSend = numberOfPacketsToSend;
+            this.createdDt = createdDt;
+            this.scheduledDt = scheduledDt;
+        }
+
+        public String getMac()
+        {
+            return mac;
+        }
+
+        public void setMac(String mac)
+        {
+            this.mac = mac;
+        }
+
+        public String getIp()
+        {
+            return ip;
+        }
+
+        public void setIp(String ip)
+        {
+            this.ip = ip;
+        }
+
+        public Integer getNumberOfPacketsToSend()
+        {
+            return numberOfPacketsToSend;
+        }
+
+        public void setNumberOfPacketsToSend(Integer numberOfPacketsToSend)
+        {
+            this.numberOfPacketsToSend = numberOfPacketsToSend;
+        }
+
+        public Long getCreatedDt()
+        {
+            return createdDt;
+        }
+
+        public void setCreatedDt(Long createdDt)
+        {
+            this.createdDt = createdDt;
+        }
+
+        public Long getScheduledDt()
+        {
+            return scheduledDt;
+        }
+
+        public void setScheduledDt(Long scheduledDt)
+        {
+            this.scheduledDt = scheduledDt;
+        }
+    }
 
 }
