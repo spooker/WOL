@@ -35,6 +35,17 @@ public class MagicPacketService extends Service
     private SharedPreferences sharedPreferences;
     private final Gson gson = new Gson();
 
+    /**
+     * Factory method to make the desired Intent.
+     */
+    public static Intent makeIntent(Context context
+    )
+    {
+        // Create the Intent that's associated to the DownloadService
+        // class.
+        Intent intent = new Intent(context, MagicPacketService.class);
+        return intent;
+    }
 
     // Handler that receives messages from the thread
     private final class ServiceHandler extends Handler
@@ -43,6 +54,8 @@ public class MagicPacketService extends Service
         {
             super(looper);
         }
+
+
 
         @Override
         public void handleMessage(Message msg)

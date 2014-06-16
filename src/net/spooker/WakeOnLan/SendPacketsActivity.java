@@ -61,7 +61,7 @@ public class SendPacketsActivity extends Activity
                 String listOfParameterObjectsString = gson.toJson(listOfParameterObjects);
 
                 //StartService
-                Intent intent = new Intent(SendPacketsActivity.this, MagicPacketService.class);
+                Intent intent = MagicPacketService.makeIntent(SendPacketsActivity.this);
                 intent.putExtra("listOfParameterObjects",listOfParameterObjectsString);
                 startService(intent);
             }
