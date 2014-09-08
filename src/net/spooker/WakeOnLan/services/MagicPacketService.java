@@ -38,8 +38,7 @@ public class MagicPacketService extends Service
     /**
      * Factory method to make the desired Intent.
      */
-    public static Intent makeIntent(Context context
-    )
+    public static Intent makeIntent(Context context)
     {
         // Create the Intent that's associated to the DownloadService
         // class.
@@ -56,80 +55,78 @@ public class MagicPacketService extends Service
         }
 
 
-
         @Override
         public void handleMessage(Message msg)
         {
             logInfo("Start of handleMessage");
             // Normally we would do some work here, like download a file.
-            synchronized (this)
+
+            try
             {
-                try
+                final Bundle data = msg.getData();
+                final ParameterObject parameterObject = gson.fromJson((String) data.get("parameterObject"), ParameterObject.class);
+                logInfo("parameterObject = " + parameterObject);
+
+                final String mac = parameterObject.getMac();
+                final String ip = parameterObject.getIp();
+                final Integer numberOfPacketsToSend = parameterObject.getNumberOfPacketsToSend();
+                final Long createdDt = parameterObject.getCreatedDt();
+                final Long scheduledDt = parameterObject.getScheduledDt();
+                final TimeUnit timeUnit = parameterObject.getTimeUnit();
+                final Long delay = scheduledDt - createdDt;
+
+                if (delay >= 0)
                 {
-                    final Bundle data = msg.getData();
-                    final ParameterObject parameterObject = gson.fromJson((String) data.get("parameterObject"), ParameterObject.class);
-                    logInfo("parameterObject = " + parameterObject);
-
-                    final String mac = parameterObject.getMac();
-                    final String ip = parameterObject.getIp();
-                    final Integer numberOfPacketsToSend = parameterObject.getNumberOfPacketsToSend();
-                    final Long createdDt = parameterObject.getCreatedDt();
-                    final Long scheduledDt = parameterObject.getScheduledDt();
-                    final TimeUnit timeUnit = parameterObject.getTimeUnit();
-                    final Long delay = scheduledDt - createdDt;
-
-                    if (delay >= 0)
+                    final CountDownLatch latch = new CountDownLatch(1);
+                    final Runnable runnable = new Runnable()
                     {
-                        final CountDownLatch latch = new CountDownLatch(1);
-                        final Runnable runnable = new Runnable()
+                        @Override
+                        public void run()
                         {
-                            @Override
-                            public void run()
+                            try
                             {
-                                try
-                                {
-                                    logInfo("scheduleFuture thread started . Thread.currentThread() = " + Thread.currentThread());
-                                    latch.await(); //Synchronize with parent thread so that we can save it to storage and the map first
-                                    MagicPacket.send(mac, ip); //Send a Magic Packet
-                                    removeFromSharedPreferences(parameterObject); //remove from storage
-                                    scheduledFuturesMap.remove(parameterObject); //remove from map
-                                    logInfo("scheduleFuture thread ended . Thread.currentThread() = " + Thread.currentThread());
-                                }
-                                catch (InterruptedException e)
-                                {
-                                    e.printStackTrace();
-                                }
-                                catch (SocketException e)
-                                {
-                                    e.printStackTrace();
-                                }
-                                catch (UnknownHostException e)
-                                {
-                                    e.printStackTrace();
-                                }
-                                catch (IOException e)
-                                {
-                                    e.printStackTrace();
-                                }
+                                logInfo("scheduleFuture thread started . Thread.currentThread() = " + Thread.currentThread());
+                                latch.await(); //Synchronize with parent thread so that we can save it to storage and the map first
+                                MagicPacket.send(mac, ip); //Send a Magic Packet
+                                removeFromSharedPreferences(parameterObject); //remove from storage
+                                scheduledFuturesMap.remove(parameterObject); //remove from map
+                                logInfo("scheduleFuture thread ended . Thread.currentThread() = " + Thread.currentThread());
                             }
-                        };
+                            catch (InterruptedException e)
+                            {
+                                e.printStackTrace();
+                            }
+                            catch (SocketException e)
+                            {
+                                e.printStackTrace();
+                            }
+                            catch (UnknownHostException e)
+                            {
+                                e.printStackTrace();
+                            }
+                            catch (IOException e)
+                            {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
 
-                        final ScheduledFuture scheduledFuture = scheduledTaskExecutor.schedule(runnable, delay, timeUnit);
-                        addToSharedPreferences(parameterObject, null); //add to storage
-                        scheduledFuturesMap.put(parameterObject, scheduledFuture); //add to map
-                        latch.countDown();
-                    } else
-                    {
-                        logInfo("Scheduled time for this event is in the past. Removing event from storage and map");
-                        removeFromSharedPreferences(parameterObject); //remove from storage
-                        scheduledFuturesMap.remove(parameterObject); //remove from map
-                    }
-                }
-                catch (Exception e)
+                    final ScheduledFuture scheduledFuture = scheduledTaskExecutor.schedule(runnable, delay, timeUnit);
+                    addToSharedPreferences(parameterObject, null); //add to storage
+                    scheduledFuturesMap.put(parameterObject, scheduledFuture); //add to map
+                    latch.countDown();
+                } else
                 {
-                    logException("Exception in handleMessage", e);
+                    logInfo("Scheduled time for this event is in the past. Removing event from storage and map");
+                    removeFromSharedPreferences(parameterObject); //remove from storage
+                    scheduledFuturesMap.remove(parameterObject); //remove from map
                 }
             }
+            catch (Exception e)
+            {
+                logException("Exception in handleMessage", e);
+            }
+
 
             logInfo("End of handleMessage()");
             // Stop the service using the startId, so that we don't stop
