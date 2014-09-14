@@ -60,6 +60,8 @@ public class MagicPacketService extends Service
         {
             logInfo("Start of handleMessage");
             // Normally we would do some work here, like download a file.
+            final Semaphore mutex = new Semaphore(1, true);
+            ScheduledFuture scheduledFuture = null;
 
             try
             {
@@ -77,20 +79,25 @@ public class MagicPacketService extends Service
 
                 if (delay >= 0)
                 {
-                    final CountDownLatch latch = new CountDownLatch(1);
+                    logInfo("waiting to acquire the mutex .ThreadId = " + Thread.currentThread().getId());
+                    mutex.acquire();
+                    logInfo("mutex aquired .ThreadId = " + Thread.currentThread().getId());
+
                     final Runnable runnable = new Runnable()
                     {
                         @Override
                         public void run()
                         {
+                            logInfo("scheduleFuture thread started . ThreadId = " + Thread.currentThread().getId());
                             try
                             {
-                                logInfo("scheduleFuture thread started . Thread.currentThread() = " + Thread.currentThread());
-                                latch.await(); //Synchronize with parent thread so that we can save it to storage and the map first
-                                MagicPacket.send(mac, ip); //Send a Magic Packet
-                                removeFromSharedPreferences(parameterObject); //remove from storage
-                                scheduledFuturesMap.remove(parameterObject); //remove from map
-                                logInfo("scheduleFuture thread ended . Thread.currentThread() = " + Thread.currentThread());
+
+                                logInfo("waiting to acquire the mutex .ThreadId = " + Thread.currentThread().getId());
+                                mutex.acquire(); //Synchronize with parent thread so that we can save it to storage and the map first
+                                logInfo("mutex aquired .ThreadId = " + Thread.currentThread().getId());
+
+                                //Send a Magic Packet
+                                MagicPacket.send(mac, ip);
                             }
                             catch (InterruptedException e)
                             {
@@ -108,23 +115,46 @@ public class MagicPacketService extends Service
                             {
                                 e.printStackTrace();
                             }
+                            finally
+                            {
+                                logInfo("Removing from SharedPreferences . ThreadId = " + Thread.currentThread().getId());
+                                removeFromSharedPreferences(parameterObject); //remove from storage
+                                logInfo("Removing from Map . ThreadId = " + Thread.currentThread().getId());
+                                scheduledFuturesMap.remove(parameterObject); //remove from map
+
+                                logInfo("releasing mutex . ThreadId = " + Thread.currentThread().getId());
+                                mutex.release();
+                            }
+                            logInfo("scheduleFuture thread ended . ThreadId = " + Thread.currentThread().getId());
                         }
                     };
 
-                    final ScheduledFuture scheduledFuture = scheduledTaskExecutor.schedule(runnable, delay, timeUnit);
+                    scheduledFuture = scheduledTaskExecutor.schedule(runnable, delay, timeUnit);
+                    logInfo("Adding to SharedPreferences . ThreadId = " + Thread.currentThread().getId());
                     addToSharedPreferences(parameterObject, null); //add to storage
+                    logInfo("Adding to Map = . ThreadId = " + Thread.currentThread().getId());
                     scheduledFuturesMap.put(parameterObject, scheduledFuture); //add to map
-                    latch.countDown();
+
                 } else
                 {
-                    logInfo("Scheduled time for this event is in the past. Removing event from storage and map");
+                    logInfo("Scheduled time for this event is in the past.");
+                    logInfo("Removing from SharedPreferences . ThreadId = " + Thread.currentThread().getId());
                     removeFromSharedPreferences(parameterObject); //remove from storage
-                    scheduledFuturesMap.remove(parameterObject); //remove from map
                 }
             }
             catch (Exception e)
             {
+                if (scheduledFuture != null)
+                {
+                    scheduledFuture.cancel(true);
+                    logInfo("Cancelled scheduledFuture");
+                }
                 logException("Exception in handleMessage", e);
+            }
+            finally
+            {
+                logInfo("releasing mutex . ThreadId = " + Thread.currentThread().getId());
+                mutex.release();
             }
 
 
@@ -229,16 +259,17 @@ public class MagicPacketService extends Service
         ed.commit();
     }
 
-    public static class ParameterObject
+    public static final class ParameterObject
     {
-        private String mac;
-        private String ip;
-        private Integer numberOfPacketsToSend;
-        private Long createdDt;
-        private Long scheduledDt;
-        private TimeUnit timeUnit;
+        private final String mac;
+        private final String ip;
+        private final Integer numberOfPacketsToSend;
+        private final Long createdDt;
+        private final Long scheduledDt;
+        private final TimeUnit timeUnit;
 
-        public ParameterObject(String mac, String ip, Integer numberOfPacketsToSend, Long createdDt, Long scheduledDt, TimeUnit timeUnit)
+        //Default private constructor will ensure no unplanned construction of class
+        private ParameterObject(String mac, String ip, Integer numberOfPacketsToSend, Long createdDt, Long scheduledDt, TimeUnit timeUnit)
         {
             this.mac = mac;
             this.ip = ip;
@@ -246,6 +277,12 @@ public class MagicPacketService extends Service
             this.createdDt = createdDt;
             this.scheduledDt = scheduledDt;
             this.timeUnit = timeUnit;
+        }
+
+        //Factory method to store object creation logic in single place
+        public static ParameterObject createNewInstance(String mac, String ip, Integer numberOfPacketsToSend, Long createdDt, Long scheduledDt, TimeUnit timeUnit)
+        {
+            return new ParameterObject(mac, ip, numberOfPacketsToSend, createdDt, scheduledDt, timeUnit);
         }
 
         public String getMac()
@@ -253,19 +290,9 @@ public class MagicPacketService extends Service
             return mac;
         }
 
-        public void setMac(String mac)
-        {
-            this.mac = mac;
-        }
-
         public String getIp()
         {
             return ip;
-        }
-
-        public void setIp(String ip)
-        {
-            this.ip = ip;
         }
 
         public Integer getNumberOfPacketsToSend()
@@ -273,19 +300,9 @@ public class MagicPacketService extends Service
             return numberOfPacketsToSend;
         }
 
-        public void setNumberOfPacketsToSend(Integer numberOfPacketsToSend)
-        {
-            this.numberOfPacketsToSend = numberOfPacketsToSend;
-        }
-
         public Long getCreatedDt()
         {
             return createdDt;
-        }
-
-        public void setCreatedDt(Long createdDt)
-        {
-            this.createdDt = createdDt;
         }
 
         public Long getScheduledDt()
@@ -293,19 +310,9 @@ public class MagicPacketService extends Service
             return scheduledDt;
         }
 
-        public void setScheduledDt(Long scheduledDt)
-        {
-            this.scheduledDt = scheduledDt;
-        }
-
         public TimeUnit getTimeUnit()
         {
             return timeUnit;
-        }
-
-        public void setTimeUnit(TimeUnit timeUnit)
-        {
-            this.timeUnit = timeUnit;
         }
 
         @Override
@@ -336,6 +343,19 @@ public class MagicPacketService extends Service
             result = 31 * result + scheduledDt.hashCode();
             result = 31 * result + timeUnit.hashCode();
             return result;
+        }
+
+        @Override
+        public String toString()
+        {
+            return "ParameterObject{" +
+                    "mac='" + mac + '\'' +
+                    ", ip='" + ip + '\'' +
+                    ", numberOfPacketsToSend=" + numberOfPacketsToSend +
+                    ", createdDt=" + createdDt +
+                    ", scheduledDt=" + scheduledDt +
+                    ", timeUnit=" + timeUnit +
+                    '}';
         }
     }
 

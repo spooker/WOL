@@ -27,7 +27,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class SendPacketsActivity extends Activity
 {
-    ProgressDialog barProgressDialog;
     Button sendPacketsBtn;
     private final Gson gson = new Gson();
 
@@ -47,13 +46,13 @@ public class SendPacketsActivity extends Activity
 
                 Calendar nowCalendar = Calendar.getInstance();
                 Calendar whenCalendar = (Calendar) nowCalendar.clone();
-                whenCalendar.add(Calendar.SECOND,60);
+                whenCalendar.add(Calendar.SECOND, 5);
 
                 final Long createdDt = (Long) nowCalendar.getTimeInMillis();
-                final Long scheduledDt  = (Long) whenCalendar.getTimeInMillis();
+                final Long scheduledDt = (Long) whenCalendar.getTimeInMillis();
 
                 //Create listOfParameterObjects
-                MagicPacketService.ParameterObject parameterObject = new MagicPacketService.ParameterObject(mac,ip,numberOfPacketsToSend,createdDt,scheduledDt,TimeUnit.MILLISECONDS);
+                MagicPacketService.ParameterObject parameterObject = MagicPacketService.ParameterObject.createNewInstance(mac, ip, numberOfPacketsToSend, createdDt, scheduledDt, TimeUnit.MILLISECONDS);
                 final List<MagicPacketService.ParameterObject> listOfParameterObjects = new ArrayList<MagicPacketService.ParameterObject>();
                 listOfParameterObjects.add(parameterObject);
 
@@ -62,7 +61,7 @@ public class SendPacketsActivity extends Activity
 
                 //StartService
                 Intent intent = MagicPacketService.makeIntent(SendPacketsActivity.this);
-                intent.putExtra("listOfParameterObjects",listOfParameterObjectsString);
+                intent.putExtra("listOfParameterObjects", listOfParameterObjectsString);
                 startService(intent);
             }
         });
