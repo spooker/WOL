@@ -96,6 +96,7 @@ public class MagicPacketService extends Service
                                 mutex.acquire(); //Synchronize with parent thread so that we can save it to storage and the map first
                                 logInfo("mutex aquired .ThreadId = " + Thread.currentThread().getId());
 
+                                logInfo("Sending Magic Packets");
                                 //Send a Magic Packet
                                 MagicPacket.send(mac, ip);
                             }

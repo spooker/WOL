@@ -78,25 +78,34 @@
       <file leaf-file-name="MagicPacketService.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/services/MagicPacketService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="80" column="17" selection-start="2988" selection-end="2988" vertical-scroll-proportion="0.87339973" vertical-offset="906" max-vertical-offset="6992">
+            <state line="251" column="16" selection-start="10160" selection-end="10160" vertical-scroll-proportion="0.21967213" vertical-offset="4635" max-vertical-offset="7011">
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1200#1234#0" expanded="true" />
-                <element signature="e#3272#5608#0" expanded="true" />
-                <element signature="e#5585#5586#0" expanded="true" />
-                <element signature="e#11532#11533#0" expanded="true" />
-                <element signature="e#11566#11567#0" expanded="true" />
-                <element signature="e#11607#11608#0" expanded="true" />
-                <element signature="e#11640#11641#0" expanded="true" />
-                <element signature="e#11701#11702#0" expanded="true" />
-                <element signature="e#11753#11754#0" expanded="true" />
-                <element signature="e#11799#11800#0" expanded="true" />
-                <element signature="e#11839#11840#0" expanded="true" />
-                <element signature="e#11887#11888#0" expanded="true" />
-                <element signature="e#11929#11930#0" expanded="true" />
-                <element signature="e#11978#11979#0" expanded="true" />
-                <element signature="e#12017#12018#0" expanded="true" />
+                <element signature="e#3272#5674#0" expanded="true" />
+                <element signature="e#5651#5652#0" expanded="true" />
+                <element signature="e#11598#11599#0" expanded="true" />
+                <element signature="e#11632#11633#0" expanded="true" />
+                <element signature="e#11673#11674#0" expanded="true" />
+                <element signature="e#11706#11707#0" expanded="true" />
+                <element signature="e#11767#11768#0" expanded="true" />
+                <element signature="e#11819#11820#0" expanded="true" />
+                <element signature="e#11865#11866#0" expanded="true" />
+                <element signature="e#11905#11906#0" expanded="true" />
+                <element signature="e#11953#11954#0" expanded="true" />
+                <element signature="e#11995#11996#0" expanded="true" />
+                <element signature="e#12044#12045#0" expanded="true" />
+                <element signature="e#12083#12084#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SharedPreferences.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://C:/Program Files/Android/adt-bundle-windows-x86_64-20140702/sdk/sources/android-17/android/content/SharedPreferences.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="78" column="15" selection-start="3173" selection-end="3173" vertical-scroll-proportion="0.0" vertical-offset="6153" max-vertical-offset="6802">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -149,7 +158,7 @@
       <file leaf-file-name="SendPacketsActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/SendPacketsActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="121" selection-start="1924" selection-end="1924" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="931">
+            <state line="48" column="52" selection-start="1594" selection-end="1594" vertical-scroll-proportion="0.0" vertical-offset="356" max-vertical-offset="931">
               <folding />
             </state>
           </provider>
@@ -167,7 +176,7 @@
       <file leaf-file-name="BootCompletedBroadcastReceiver.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/broadcastReceivers/BootCompletedBroadcastReceiver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="0" selection-start="1764" selection-end="1764" vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="1406">
+            <state line="44" column="0" selection-start="1764" selection-end="1764" vertical-scroll-proportion="0.0" vertical-offset="749" max-vertical-offset="1406">
               <folding />
             </state>
           </provider>
@@ -674,12 +683,12 @@
       <workItem from="1410203328174" duration="3965000" />
       <workItem from="1410525112798" duration="2438000" />
       <workItem from="1410685732364" duration="1082000" />
-      <workItem from="1410688992439" duration="9092000" />
+      <workItem from="1410688992439" duration="9658000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98344000" />
+    <option name="totallyTimeSpent" value="98910000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
@@ -700,7 +709,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32950193" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24779628" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3183154" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -774,20 +783,20 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1200#1234#0" expanded="true" />
-            <element signature="e#3272#5608#0" expanded="true" />
-            <element signature="e#5585#5586#0" expanded="true" />
-            <element signature="e#11532#11533#0" expanded="true" />
-            <element signature="e#11566#11567#0" expanded="true" />
-            <element signature="e#11607#11608#0" expanded="true" />
-            <element signature="e#11640#11641#0" expanded="true" />
-            <element signature="e#11701#11702#0" expanded="true" />
-            <element signature="e#11753#11754#0" expanded="true" />
-            <element signature="e#11799#11800#0" expanded="true" />
-            <element signature="e#11839#11840#0" expanded="true" />
-            <element signature="e#11887#11888#0" expanded="true" />
-            <element signature="e#11929#11930#0" expanded="true" />
-            <element signature="e#11978#11979#0" expanded="true" />
-            <element signature="e#12017#12018#0" expanded="true" />
+            <element signature="e#3272#5674#0" expanded="true" />
+            <element signature="e#5651#5652#0" expanded="true" />
+            <element signature="e#11598#11599#0" expanded="true" />
+            <element signature="e#11632#11633#0" expanded="true" />
+            <element signature="e#11673#11674#0" expanded="true" />
+            <element signature="e#11706#11707#0" expanded="true" />
+            <element signature="e#11767#11768#0" expanded="true" />
+            <element signature="e#11819#11820#0" expanded="true" />
+            <element signature="e#11865#11866#0" expanded="true" />
+            <element signature="e#11905#11906#0" expanded="true" />
+            <element signature="e#11953#11954#0" expanded="true" />
+            <element signature="e#11995#11996#0" expanded="true" />
+            <element signature="e#12044#12045#0" expanded="true" />
+            <element signature="e#12083#12084#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -826,20 +835,20 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1200#1234#0" expanded="true" />
-            <element signature="e#3272#5608#0" expanded="true" />
-            <element signature="e#5585#5586#0" expanded="true" />
-            <element signature="e#11532#11533#0" expanded="true" />
-            <element signature="e#11566#11567#0" expanded="true" />
-            <element signature="e#11607#11608#0" expanded="true" />
-            <element signature="e#11640#11641#0" expanded="true" />
-            <element signature="e#11701#11702#0" expanded="true" />
-            <element signature="e#11753#11754#0" expanded="true" />
-            <element signature="e#11799#11800#0" expanded="true" />
-            <element signature="e#11839#11840#0" expanded="true" />
-            <element signature="e#11887#11888#0" expanded="true" />
-            <element signature="e#11929#11930#0" expanded="true" />
-            <element signature="e#11978#11979#0" expanded="true" />
-            <element signature="e#12017#12018#0" expanded="true" />
+            <element signature="e#3272#5674#0" expanded="true" />
+            <element signature="e#5651#5652#0" expanded="true" />
+            <element signature="e#11598#11599#0" expanded="true" />
+            <element signature="e#11632#11633#0" expanded="true" />
+            <element signature="e#11673#11674#0" expanded="true" />
+            <element signature="e#11706#11707#0" expanded="true" />
+            <element signature="e#11767#11768#0" expanded="true" />
+            <element signature="e#11819#11820#0" expanded="true" />
+            <element signature="e#11865#11866#0" expanded="true" />
+            <element signature="e#11905#11906#0" expanded="true" />
+            <element signature="e#11953#11954#0" expanded="true" />
+            <element signature="e#11995#11996#0" expanded="true" />
+            <element signature="e#12044#12045#0" expanded="true" />
+            <element signature="e#12083#12084#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -919,20 +928,20 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1200#1234#0" expanded="true" />
-            <element signature="e#3272#5608#0" expanded="true" />
-            <element signature="e#5585#5586#0" expanded="true" />
-            <element signature="e#11532#11533#0" expanded="true" />
-            <element signature="e#11566#11567#0" expanded="true" />
-            <element signature="e#11607#11608#0" expanded="true" />
-            <element signature="e#11640#11641#0" expanded="true" />
-            <element signature="e#11701#11702#0" expanded="true" />
-            <element signature="e#11753#11754#0" expanded="true" />
-            <element signature="e#11799#11800#0" expanded="true" />
-            <element signature="e#11839#11840#0" expanded="true" />
-            <element signature="e#11887#11888#0" expanded="true" />
-            <element signature="e#11929#11930#0" expanded="true" />
-            <element signature="e#11978#11979#0" expanded="true" />
-            <element signature="e#12017#12018#0" expanded="true" />
+            <element signature="e#3272#5674#0" expanded="true" />
+            <element signature="e#5651#5652#0" expanded="true" />
+            <element signature="e#11598#11599#0" expanded="true" />
+            <element signature="e#11632#11633#0" expanded="true" />
+            <element signature="e#11673#11674#0" expanded="true" />
+            <element signature="e#11706#11707#0" expanded="true" />
+            <element signature="e#11767#11768#0" expanded="true" />
+            <element signature="e#11819#11820#0" expanded="true" />
+            <element signature="e#11865#11866#0" expanded="true" />
+            <element signature="e#11905#11906#0" expanded="true" />
+            <element signature="e#11953#11954#0" expanded="true" />
+            <element signature="e#11995#11996#0" expanded="true" />
+            <element signature="e#12044#12045#0" expanded="true" />
+            <element signature="e#12083#12084#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1097,11 +1106,6 @@
         <state line="6" column="19" selection-start="164" selection-end="164" vertical-scroll-proportion="0.1336478" vertical-offset="0" max-vertical-offset="1598" />
       </provider>
     </entry>
-    <entry file="file://C:/Program Files/Android/adt-bundle-windows-x86_64-20140702/sdk/sources/android-17/android/content/SharedPreferences.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="17" selection-start="1656" selection-end="1656" vertical-scroll-proportion="0.33266333" vertical-offset="163" max-vertical-offset="6802" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="39" selection-start="260" selection-end="260" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="703">
@@ -1153,38 +1157,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/SendPacketsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="121" selection-start="1924" selection-end="1924" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="931">
+        <state line="48" column="52" selection-start="1594" selection-end="1594" vertical-scroll-proportion="0.0" vertical-offset="356" max-vertical-offset="931">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/broadcastReceivers/BootCompletedBroadcastReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="0" selection-start="1764" selection-end="1764" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1406">
+        <state line="44" column="0" selection-start="1764" selection-end="1764" vertical-scroll-proportion="0.0" vertical-offset="749" max-vertical-offset="1406">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files/Android/adt-bundle-windows-x86_64-20140702/sdk/sources/android-17/android/content/SharedPreferences.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="78" column="15" selection-start="3173" selection-end="3173" vertical-scroll-proportion="0.0" vertical-offset="6153" max-vertical-offset="6802">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/spooker/WakeOnLan/services/MagicPacketService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="17" selection-start="2988" selection-end="2988" vertical-scroll-proportion="0.87339973" vertical-offset="906" max-vertical-offset="6992">
+        <state line="251" column="16" selection-start="10160" selection-end="10160" vertical-scroll-proportion="0.21967213" vertical-offset="4635" max-vertical-offset="7011">
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1200#1234#0" expanded="true" />
-            <element signature="e#3272#5608#0" expanded="true" />
-            <element signature="e#5585#5586#0" expanded="true" />
-            <element signature="e#11532#11533#0" expanded="true" />
-            <element signature="e#11566#11567#0" expanded="true" />
-            <element signature="e#11607#11608#0" expanded="true" />
-            <element signature="e#11640#11641#0" expanded="true" />
-            <element signature="e#11701#11702#0" expanded="true" />
-            <element signature="e#11753#11754#0" expanded="true" />
-            <element signature="e#11799#11800#0" expanded="true" />
-            <element signature="e#11839#11840#0" expanded="true" />
-            <element signature="e#11887#11888#0" expanded="true" />
-            <element signature="e#11929#11930#0" expanded="true" />
-            <element signature="e#11978#11979#0" expanded="true" />
-            <element signature="e#12017#12018#0" expanded="true" />
+            <element signature="e#3272#5674#0" expanded="true" />
+            <element signature="e#5651#5652#0" expanded="true" />
+            <element signature="e#11598#11599#0" expanded="true" />
+            <element signature="e#11632#11633#0" expanded="true" />
+            <element signature="e#11673#11674#0" expanded="true" />
+            <element signature="e#11706#11707#0" expanded="true" />
+            <element signature="e#11767#11768#0" expanded="true" />
+            <element signature="e#11819#11820#0" expanded="true" />
+            <element signature="e#11865#11866#0" expanded="true" />
+            <element signature="e#11905#11906#0" expanded="true" />
+            <element signature="e#11953#11954#0" expanded="true" />
+            <element signature="e#11995#11996#0" expanded="true" />
+            <element signature="e#12044#12045#0" expanded="true" />
+            <element signature="e#12083#12084#0" expanded="true" />
           </folding>
         </state>
       </provider>

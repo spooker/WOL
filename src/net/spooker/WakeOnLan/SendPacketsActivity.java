@@ -46,7 +46,7 @@ public class SendPacketsActivity extends Activity
 
                 Calendar nowCalendar = Calendar.getInstance();
                 Calendar whenCalendar = (Calendar) nowCalendar.clone();
-                whenCalendar.add(Calendar.SECOND, 5);
+                whenCalendar.add(Calendar.SECOND, 60);
 
                 final Long createdDt = (Long) nowCalendar.getTimeInMillis();
                 final Long scheduledDt = (Long) whenCalendar.getTimeInMillis();
